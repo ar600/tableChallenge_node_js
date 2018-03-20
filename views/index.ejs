@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Table Challenge</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="./index.css" />
+  <link rel="stylesheet" type="text/css" href="./colResizable-1.6/colresizable/samples/colResizable.Demo/css/main.css" />
+  <title> Ali Rashidian - alex.80.ra@gmail.com</title>
+
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+  <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+
+  <style>
+      .scroll{
+          overflow:scroll;
+          max-width:100%;
+          position:relative;
+      }
+  </style>
+  <script  src="./colResizable-1.6/colresizable/samples/colResizable.Demo/js/jquery.js"></script>
+  <script  src="./colResizable-1.6/colresizable/colResizable-1.6.js"></script>
+  <script type="text/javascript">
+	 $(function(){
+
+        var innerHTML = $("#updatePanel").html();
+
+        var onTablesCreated = function(){
+            $("#normal").colResizable({
+                liveDrag:true,
+                gripInnerHtml:"<div class='grip'></div>",
+                draggingClass:"dragging",
+                resizeMode:'fit',
+                postbackSafe:true,
+                partialRefresh:true});
+
+            $("#flex").colResizable({
+                liveDrag:true,
+                gripInnerHtml:"<div class='grip'></div>",
+                draggingClass:"dragging",
+                resizeMode:'flex',
+                postbackSafe:true,
+                partialRefresh:true});
+
+
+            $("#overflow").colResizable({
+                liveDrag:true,
+                gripInnerHtml:"<div class='grip'></div>",
+                draggingClass:"dragging",
+                resizeMode:'overflow',
+                postbackSafe:true,
+                partialRefresh:true});
+        }
+
+		var fakePostback = function(){
+			$("#updatePanel").html('<img src="img/loading.gif"/>');
+			setTimeout(function(){
+				$("#updatePanel").html(innerHTML);
+				onPostbackOver();
+				}, 700);
+		};
+
+		var onPostbackOver = function(){
+			onTablesCreated();
+		};
+
+
+		$("#postback").click(fakePostback);
+        onPostbackOver();
+
+    });
+  </script>
+
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <h1>Table Challenge</h1>
+      <form action="/filter" method="post">
+        <select class="custom-select" name="tableData[]" multiple required>
+          <option value="uuid1">uuid1</option>
+          <option value="uuid2">uuid2</option>
+          <option value="uuid3">uuid3</option>
+          <option value="uuid4">uuid4</option>
+          <option value="uuid5">uuid5</option>
+          <option value="uuid6">uuid6</option>
+          <option value="uuid7">uuid7</option>
+          <option value="uuid8">uuid8</option>
+          <option value="uuid9">uuid9</option>
+
+          <option value="date">date</option>
+
+          <option value="time">time</option>
+
+          <option value="number1">number1</option>
+          <option value="number2">number2</option>
+          <option value="number3">number3</option>
+          <option value="number4">number4</option>
+          <option value="number5">number5</option>
+          <option value="number6">number6</option>
+          <option value="number7">number7</option>
+          <option value="number8">number8</option>
+          <option value="number9">number9</option>
+          <option value="number10">number10</option>
+
+          <option value="text1">text1</option>
+          <option value="text2">text2</option>
+          <option value="text3">text3</option>
+          <option value="text4">text4</option>
+          <option value="text5">text5</option>
+          <option value="text6">text6</option>
+          <option value="text7">text7</option>
+          <option value="text8">text8</option>
+          <option value="text9">text9</option>
+          <option value="text10">text10</option>
+          <option value="text11">text11</option>
+          <option value="text12">text12</option>
+          <option value="text13">text13</option>
+          <option value="text14">text14</option>
+          <option value="text15">text15</option>
+          <option value="text16">text16</option>
+          <option value="text17">text17</option>
+          <option value="text18">text18</option>
+          <option value="text19">text19</option>
+          <option value="text20">text20</option>
+        </select>
+        <input type="submit" name="submit" value="Update">
+      </form>
+
+      <div class="scroll">
+        <table id="overflow" >
+        <% if (updatedAPI) { %>
+          <tr>
+            <% for (key in updatedAPI) { %>
+              <th><%= key %></th>
+            <% } %>
+          </tr>
+
+            <tr>
+            <% for (value in updatedAPI) { %>
+              <td id="aTag" >
+                <%= updatedAPI[value] %>
+              </td>
+            <% } %>
+            </tr>
+        <% } %>
+      </table>
+  </div>
+
+  <form action="/reset" method="post">
+    <input class="btn-primary" type="submit" value="Reset">
+  </form>
+
+  </div> <!-- container -->
+
+    <script> //setting the href and target for all the anchors
+    // bind olver version of on
+      $("a").bind('click', function(e) {
+        e.preventDefault();
+        var x = document.links;
+        for(var i=0, l=x.length; i<l; i++){
+          x[i].setAttribute("target", "_blank");
+        }
+        // setting the href of all links to ThreatMetrix
+        location.href = "https://www.threatmetrix.com/";
+      })
+
+    </script>
+  </body>
+</html>
