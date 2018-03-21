@@ -7,7 +7,10 @@ var session = require('express-session');
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({secret: 'some-secret-key'}));
+app.use(session({secret: 'some-secret-key',
+saveUninitialized: false,
+resave: false
+}));
 app.use(express.static(__dirname + "/views"));
 
 app.set('view engine', 'ejs');
@@ -97,6 +100,6 @@ app.post('/reset' , (req,res) => {
   res.redirect('/');
 });
 
-app.listen(8000, function() {
- console.log("listening on port 8000");
+app.listen(8080, function() {
+ console.log("listening on port 8080");
 });

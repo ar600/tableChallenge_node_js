@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" type="text/css" href="./index.css" />
   <link rel="stylesheet" type="text/css" href="./colResizable-1.6/colresizable/samples/colResizable.Demo/css/main.css" />
   <title> Ali Rashidian - alex.80.ra@gmail.com</title>
 
@@ -136,10 +135,11 @@
         <input type="submit" name="submit" value="Update">
       </form>
 
+
       <div class="scroll">
         <table id="overflow" >
         <% if (updatedAPI) { %>
-          <tr>
+          <tr id="lockHead">
             <% for (key in updatedAPI) { %>
               <th><%= key %></th>
             <% } %>
@@ -147,7 +147,7 @@
 
             <tr>
             <% for (value in updatedAPI) { %>
-              <td id="aTag" >
+              <td id="lockRow" >
                 <%= updatedAPI[value] %>
               </td>
             <% } %>
@@ -163,16 +163,25 @@
   </div> <!-- container -->
 
     <script> //setting the href and target for all the anchors
-    // bind olver version of on
-      $("a").bind('click', function(e) {
-        e.preventDefault();
-        var x = document.links;
-        for(var i=0, l=x.length; i<l; i++){
-          x[i].setAttribute("target", "_blank");
+      window.onload = function() {
+        var x = document.getElementsByTagName('a');
+        for (var i = 0; i < x.length; i++) {
+          x[i].setAttribute('target', '_blank');
+          x[i].href = "https://www.threatmetrix.com/";
+          }
+          var row = document.getElementById('lockRow');
+          var head = document.getElementById('lockHead');
+          console.log(row);
+          console.log(head);
+          $('th:first-child , th:nth-child(2) ').bind('click', function(){
+            // row.css('position', 'fixed');
+            $('th:first-child').css("position" ,"fixed");
+            $('th:first-child').css("max-width" ,"10rem")
+             $('th:first-child').css("background", "yellow");
+            $('#lockRow:first-child').css("position" ,"fixed");
+          })
         }
-        // setting the href of all links to ThreatMetrix
-        location.href = "https://www.threatmetrix.com/";
-      })
+
 
     </script>
   </body>
