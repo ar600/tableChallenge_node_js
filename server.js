@@ -79,11 +79,18 @@ app.post('/filter', (req, res) => {
   console.log("requested Data sent from user , line 77",requestedApi);
 
   console.log("line 83, updatedAPI", updatedAPI);
-  for (key in dataFromAPI) {
+  // for (key in dataFromAPI) {
+  //   for (var i = 0; i < requestedApi.length; i++) {
+  //     if (key.toLowerCase() == requestedApi[i]) {
+  //         updatedAPI[key] = dataFromAPI[key];
+  //       }
+  //     }
+  //   }
+
     for (var i = 0; i < requestedApi.length; i++) {
-      if (key.toLowerCase() == requestedApi[i]) {
-          updatedAPI[key] = dataFromAPI[key];
-        }
+      console.log("line 92, requestedApi:" , requestedApi);
+      if (requestedApi[i].toUpperCase() in dataFromAPI) {
+        updatedAPI[requestedApi[i]] = dataFromAPI[requestedApi[i].toUpperCase()];
       }
     }
     console.log("updatedAPI array to be sent back to the FRONT, 127", updatedAPI);
